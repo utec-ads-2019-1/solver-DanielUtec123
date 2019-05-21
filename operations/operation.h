@@ -94,4 +94,13 @@ public:
     }
 };
 
+class Variable: public Operation{
+
+    Variable(string equation_){
+        equation = equation_;
+    }
+
+
+};
+
 #endif
