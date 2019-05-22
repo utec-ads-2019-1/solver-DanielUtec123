@@ -4,6 +4,9 @@
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <map>
+#include <iterator>
+
 
 using namespace std;
 
@@ -42,7 +45,7 @@ public:
     }
     float operate(){
         return left->operate() - right->operate();
-    }
+}
 };
 
 
