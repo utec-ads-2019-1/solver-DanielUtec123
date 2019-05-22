@@ -78,7 +78,7 @@ public:
         return pow(left->operate() , right ->operate());
     }
 };
-
+s
 
 
 
