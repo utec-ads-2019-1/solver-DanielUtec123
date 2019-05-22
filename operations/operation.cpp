@@ -3,15 +3,24 @@
 
 char operations[] = { '+', '-', '*', '/','^'};
 
+char caracters[] = {'+', '-', '*', '/','^','(',')','0','1','2','3','4','5','6','7','8','9','\n'};
+
 int Highpriority(string equation,int &pos);
 
 void ReduceExtremeBrackets(string &equation);
 
 void ReduceMultiPlus(string &equation);
 
+void SetValues(string &equation);
+
+bool CheckVariable(string equation);
+
+void ReplaceVariable(string &equation,char var,string real);
 
 Operation* Operation::buildFromEquation(string equation) {
 
+
+    SetValues(equation);
     ReduceExtremeBrackets(equation);
     ReduceMultiPlus(equation);
 
@@ -37,8 +46,73 @@ Operation* Operation::buildFromEquation(string equation) {
 
 }
 
-int Highpriority(string equation,int &pos){
+bool CheckVariable(string equation){
+    int size_car = sizeof(caracters)/ sizeof(char);
+    if(equation.size()==0)
+        return false;
 
+    for(int i=0;i<equation.size();i++){
+        bool is= false;
+        for(int j=0;j<size_car;j++){
+            if(equation[i]==caracters[j]){
+                is = true;
+            }
+        }
+        if (!is){
+            return true;
+        }
+    }
+}
+
+void SetValues(string &equation){
+
+    map<char,string> values;
+
+    int size_car = sizeof(caracters)/ sizeof(char);
+    for(int i=0;i<equation.size();i++){
+        bool is= false;
+        for(int j=0;j<size_car;j++){
+            if(equation[i]==caracters[j]){
+                is = true;
+            }
+        }
+        if (!is){
+            values.insert(pair<char,string>(equation[i],"5"));
+            cout << equation[i];
+        }
+    }
+    map<char, string>::iterator itr;
+
+    int c = 0;
+    for (itr = values.begin(); itr != values.end(); ++itr) {
+        string s;
+        cout << "Ingrese el valor de la variable " << itr->first << ": ";
+        cin >> s;
+        itr->second = s;
+        //values.insert(pair<char,string>(itr->first,s));
+        cout << endl;
+        c++;
+    }
+    for (itr = values.begin(); itr != values.end(); ++itr) {
+        ReplaceVariable(equation,itr->first,itr->second);
+    }
+};
+
+void ReplaceVariable(string &equation,char var, string real){
+    for(int i =1;i<equation.size();i++){
+        if(equation[i]==var){
+            equation = equation.substr(0,i)+real+equation.substr(i+1);
+            ReplaceVariable(equation,var,real);
+        }
+    }
+    return;
+}
+
+
+
+
+
+int Highpriority(string equation,int &pos){
 
     int size_op = sizeof(operations)/ sizeof(char);
     for(int i=0;i<size_op;i++){
@@ -59,19 +133,12 @@ int Highpriority(string equation,int &pos){
                     }
                     pos = j;
                     cout<<i+1;
-
-
-
-
                     return i+1;
                 }
             }
         }
     }
     return -1;
-
-
-
 }
 
 
@@ -111,8 +178,6 @@ void ReduceMultiPlus(string &equation){
     return;
 
 };
-
-
 
 
 void ReduceExtremeBrackets(string &equation){
