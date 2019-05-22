@@ -14,10 +14,10 @@ class Operation {
     protected:
         string equation;
 
+    public:
         Operation* left;
         Operation* right;
-              
-    public:  
+
         static Operation* buildFromEquation(string equation);
 
         inline string name() { return equation; }
@@ -35,6 +35,7 @@ public:
     float operate(){
         return left->operate() + right ->operate();
     }
+    ~Suma();
 };
 
 class Resta: public Operation{
@@ -45,7 +46,8 @@ public:
     }
     float operate(){
         return left->operate() - right->operate();
-}
+    }
+    ~Resta();
 };
 
 
@@ -58,6 +60,7 @@ public:
     float operate(){
         return left->operate() * right ->operate();
     }
+    ~Multiplicacion();
 };
 
 class  Divicion: public Operation{
@@ -69,6 +72,7 @@ public:
     float operate(){
         return left->operate()/right ->operate();
     }
+    ~Divicion();
 };
 
 class Potencia: public Operation{
@@ -80,8 +84,9 @@ public:
     float operate(){
         return pow(left->operate() , right ->operate());
     }
+    ~Potencia();
 };
-s
+
 
 
 
@@ -90,18 +95,24 @@ class Constant: public Operation{
 public:
     Constant(string equation_){
         equation = equation_;
+        left = nullptr;
+        right = nullptr;
     }
 
     float operate(){
         return strtof(equation.c_str(),0);
     }
+    ~Constant();
 };
 
 class Variable: public Operation{
 
     Variable(string equation_){
         equation = equation_;
+        left = nullptr;
+        right = nullptr;
     }
+    ~Variable();
 
 
 };

@@ -229,3 +229,32 @@ void ReduceExtremeBrackets(string &equation){
     }
     return;
 };
+
+void DeleteAll(Operation* op){
+
+    if(op->right)
+        DeleteAll(op->right);
+    if(op->left)
+        DeleteAll(op->left);
+    delete this;
+
+
+}
+
+
+Potencia::~Potencia() {
+    DeleteAll(this);
+}
+
+Suma::~Suma() {
+    DeleteAll(this);
+}
+Resta::~Resta() {
+    DeleteAll(this);
+}
+Multiplicacion::~Multiplicacion() {
+    DeleteAll(this);
+}
+Divicion::~Divicion() {
+    DeleteAll(this);
+}
