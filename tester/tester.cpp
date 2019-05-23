@@ -12,7 +12,8 @@ void Tester::execute() {
         "((7*3)/4+6*(3^2)/2)*(-1)",
         "(5+-3)+(21/3*5)-(5^3-2)",
         "((19--45/16*100-(181^2-15*10))",
-        "-1"
+        "-1",
+        "a*a+b*b"
 
 
     };  
@@ -28,7 +29,8 @@ void Tester::execute() {
         -32.25,
         -86,
         -32310.75,
-        -1
+        -1,
+        25
 
     };
 
@@ -37,6 +39,7 @@ void Tester::execute() {
         Operation* root = Operation::buildFromEquation(equations[i]);
         float respuesta = root->operate();
         ASSERT(respuesta == results[i], "The solver is not working");
+        cout <<root->name()<< " = " << respuesta<<endl;
         cout << "Equation(" << i + 1 << ") solved" << endl;
     }
 }

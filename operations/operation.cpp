@@ -72,13 +72,13 @@ void SetValues(string &equation){
     for(int i=0;i<equation.size();i++){
         bool is= false;
         for(int j=0;j<size_car;j++){
-            if(equation[i]==caracters[j]){
+            if(caracters[j]==equation[i]){
                 is = true;
             }
         }
         if (!is){
             values.insert(pair<char,string>(equation[i],"5"));
-            cout << equation[i];
+
         }
     }
     map<char, string>::iterator itr;
@@ -99,7 +99,7 @@ void SetValues(string &equation){
 };
 
 void ReplaceVariable(string &equation,char var, string real){
-    for(int i =1;i<equation.size();i++){
+    for(int i =0;i<equation.size();i++){
         if(equation[i]==var){
             equation = equation.substr(0,i)+real+equation.substr(i+1);
             ReplaceVariable(equation,var,real);
@@ -132,7 +132,6 @@ int Highpriority(string equation,int &pos){
                         return 3;
                     }
                     pos = j;
-                    cout<<i+1;
                     return i+1;
                 }
             }
@@ -144,7 +143,7 @@ int Highpriority(string equation,int &pos){
 
 
 void ReduceMultiPlus(string &equation){
-    cout << equation<<endl;
+    //cout << equation<<endl;
     for(int i=0;i<equation.size();i++){
         if((equation[i]=='+' or equation[i]=='-')and(equation[i+1]=='+' or equation[i+1]=='-')){
             int c =1;
@@ -174,7 +173,6 @@ void ReduceMultiPlus(string &equation){
 
         }
     }
-    cout << equation<<endl;
     return;
 
 };
@@ -236,7 +234,7 @@ void DeleteAll(Operation* op){
         DeleteAll(op->right);
     if(op->left)
         DeleteAll(op->left);
-    delete this;
+    delete op;
 
 
 }
@@ -256,5 +254,8 @@ Multiplicacion::~Multiplicacion() {
     DeleteAll(this);
 }
 Divicion::~Divicion() {
+    DeleteAll(this);
+}
+Constant::~Constant() {
     DeleteAll(this);
 }

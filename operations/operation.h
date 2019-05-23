@@ -31,6 +31,7 @@ public:
     Suma(string left_equation, string right_equation){
         left = Operation::buildFromEquation(left_equation);
         right = Operation::buildFromEquation(right_equation);
+        equation = left_equation +"+"+ right_equation;
     }
     float operate(){
         return left->operate() + right ->operate();
@@ -43,6 +44,7 @@ public:
     Resta(string left_equation, string right_equation){
         left = Operation::buildFromEquation(left_equation);
         right = Operation::buildFromEquation(right_equation);
+        equation = left_equation +"-"+ right_equation;
     }
     float operate(){
         return left->operate() - right->operate();
@@ -56,6 +58,7 @@ public:
     Multiplicacion(string left_equation, string right_equation){
         left = Operation::buildFromEquation(left_equation);
         right = Operation::buildFromEquation(right_equation);
+        equation = left_equation +"*"+ right_equation;
     }
     float operate(){
         return left->operate() * right ->operate();
@@ -68,6 +71,7 @@ public:
     Divicion(string left_equation, string right_equation){
         left = Operation::buildFromEquation(left_equation);
         right = Operation::buildFromEquation(right_equation);
+        equation = left_equation +"/"+ right_equation;
     }
     float operate(){
         return left->operate()/right ->operate();
@@ -80,6 +84,7 @@ public:
     Potencia(string left_equation, string right_equation){
         left = Operation::buildFromEquation(left_equation);
         right = Operation::buildFromEquation(right_equation);
+        equation = left_equation +"^"+ right_equation;
     }
     float operate(){
         return pow(left->operate() , right ->operate());
